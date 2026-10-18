@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CampusTask.ViewModels"
+             x:Class="CampusTask.Views.Profile.ProfilePage"
+             x:DataType="vm:ProfileViewModel"
+             BackgroundColor="{StaticResource Background}"
+             Title="Profil">
+
+    <VerticalStackLayout Padding="24" Spacing="16">
+
+        <Label Text="Profil et paramètres" Style="{StaticResource TitleLabel}" />
+
+        <Frame Style="{StaticResource CardFrame}">
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{Binding FullName}" FontAttributes="Bold" FontSize="18" />
+                <Label Text="{Binding Email}" Style="{StaticResource SecondaryLabel}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <Button Text="Se déconnecter"
+                Style="{StaticResource DangerButton}"
+                Command="{Binding LogoutCommand}"
+                Margin="0,24,0,0" />
+
+        <Label Text="CampusTask · Version 1.0"
+               Style="{StaticResource SecondaryLabel}"
+               HorizontalOptions="Center"
+               Margin="0,24,0,0" />
+    </VerticalStackLayout>
+</ContentPage>

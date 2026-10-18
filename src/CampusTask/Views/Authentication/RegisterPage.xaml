@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CampusTask.ViewModels"
+             x:Class="CampusTask.Views.Authentication.RegisterPage"
+             x:DataType="vm:RegisterViewModel"
+             BackgroundColor="{StaticResource Background}"
+             Title="Créer un compte">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+
+            <Label Text="Bienvenue sur CampusTask"
+                   Style="{StaticResource TitleLabel}"
+                   HorizontalOptions="Center" />
+
+            <Label Text="Créez votre espace étudiant pour organiser vos échéances."
+                   Style="{StaticResource SecondaryLabel}"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,12" />
+
+            <Label Text="Nom complet" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding FullName}" Placeholder="Votre nom complet" />
+
+            <Label Text="Adresse e-mail" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding Email}" Placeholder="ex: etudiant@univ.fr" Keyboard="Email" />
+
+            <Label Text="Mot de passe" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding Password}" IsPassword="True" Placeholder="Minimum 6 caractères" />
+
+            <Label Text="Confirmer le mot de passe" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding ConfirmPassword}" IsPassword="True" Placeholder="Retapez le mot de passe" />
+
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="{StaticResource Error}"
+                   IsVisible="{Binding HasError}"
+                   FontSize="13" />
+
+            <Button Text="Créer mon compte"
+                    Style="{StaticResource PrimaryButton}"
+                    Command="{Binding RegisterCommand}"
+                    Margin="0,8,0,0" />
+
+            <Button Text="Déjà un compte ? Se connecter"
+                    Style="{StaticResource SecondaryButton}"
+                    Command="{Binding GoToLoginCommand}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

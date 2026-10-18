@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CampusTask.ViewModels"
+             x:Class="CampusTask.Views.Tasks.AddTaskPage"
+             x:DataType="vm:AddTaskViewModel"
+             BackgroundColor="{StaticResource Background}"
+             Title="Ajouter une tâche">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="12">
+
+            <Label Text="Un devoir, un TP ou un projet : notez l'essentiel."
+                   Style="{StaticResource SecondaryLabel}" />
+
+            <Label Text="Titre *" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding Title}" Placeholder="Titre de la tâche" />
+
+            <Label Text="Matière *" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding Subject}" Placeholder="Ex: Bases de données" />
+
+            <Label Text="Description" TextColor="{StaticResource TextPrimary}" />
+            <Editor Text="{Binding Description}"
+                    Placeholder="Détails optionnels..."
+                    HeightRequest="100"
+                    AutoSize="TextChanges" />
+
+            <Label Text="Date limite *" TextColor="{StaticResource TextPrimary}" />
+            <DatePicker Date="{Binding DueDate}" />
+
+            <Label Text="Priorité" TextColor="{StaticResource TextPrimary}" />
+            <Picker Title="Choisir une priorité"
+                    ItemsSource="{Binding PriorityOptions}"
+                    SelectedItem="{Binding SelectedPriorityLabel}" />
+
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="{StaticResource Error}"
+                   IsVisible="{Binding HasError}"
+                   FontSize="13" />
+
+            <Button Text="+ Créer la tâche"
+                    Style="{StaticResource PrimaryButton}"
+                    Command="{Binding CreateCommand}"
+                    Margin="0,12,0,0" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

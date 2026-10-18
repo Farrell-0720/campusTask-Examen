@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CampusTask.ViewModels"
+             x:Class="CampusTask.Views.Authentication.LoginPage"
+             x:DataType="vm:LoginViewModel"
+             BackgroundColor="{StaticResource Background}"
+             Title="Connexion">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" VerticalOptions="Center">
+
+            <!-- Logo / Titre -->
+            <Label Text="CampusTask"
+                   Style="{StaticResource TitleLabel}"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource Primary}" />
+
+            <Label Text="Vos études, mieux organisées."
+                   Style="{StaticResource SecondaryLabel}"
+                   HorizontalOptions="Center"
+                   Margin="0,0,0,16" />
+
+            <!-- Email -->
+            <Label Text="Adresse e-mail" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding Email}"
+                   Placeholder="ex: etudiant@univ.fr"
+                   Keyboard="Email"
+                   ReturnType="Next" />
+
+            <!-- Mot de passe -->
+            <Label Text="Mot de passe" TextColor="{StaticResource TextPrimary}" />
+            <Entry Text="{Binding Password}"
+                   IsPassword="True"
+                   Placeholder="Votre mot de passe"
+                   ReturnType="Done" />
+
+            <!-- Message d'erreur -->
+            <Label Text="{Binding ErrorMessage}"
+                   TextColor="{StaticResource Error}"
+                   IsVisible="{Binding HasError}"
+                   FontSize="13" />
+
+            <!-- Bouton Connexion -->
+            <Button Text="Se connecter"
+                    Style="{StaticResource PrimaryButton}"
+                    Command="{Binding LoginCommand}"
+                    IsEnabled="{Binding IsBusy, Converter={StaticResource InvertedBoolConverter}}" />
+
+            <!-- Lien inscription -->
+            <Button Text="Créer un compte"
+                    Style="{StaticResource SecondaryButton}"
+                    Command="{Binding GoToRegisterCommand}"
+                    Margin="0,8,0,0" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}"
+                               Color="{StaticResource Primary}"
+                               HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

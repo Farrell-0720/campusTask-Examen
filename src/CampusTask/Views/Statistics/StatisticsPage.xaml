@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CampusTask.ViewModels"
+             x:Class="CampusTask.Views.Statistics.StatisticsPage"
+             x:DataType="vm:StatisticsViewModel"
+             BackgroundColor="{StaticResource Background}"
+             Title="Statistiques">
+
+    <RefreshView IsRefreshing="{Binding IsBusy}" Command="{Binding RefreshCommand}">
+        <ScrollView>
+            <VerticalStackLayout Padding="24" Spacing="16">
+
+                <Label Text="Votre progression" Style="{StaticResource TitleLabel}" />
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
+                    <Frame Grid.Column="0" Style="{StaticResource CardFrame}" Padding="12">
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <Label Text="{Binding Completed}" FontSize="24" FontAttributes="Bold"
+                                   TextColor="{StaticResource Success}" HorizontalOptions="Center" />
+                            <Label Text="Terminées" FontSize="12" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame Grid.Column="1" Style="{StaticResource CardFrame}" Padding="12">
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <Label Text="{Binding Remaining}" FontSize="24" FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}" HorizontalOptions="Center" />
+                            <Label Text="Restantes" FontSize="12" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                    <Frame Grid.Column="2" Style="{StaticResource CardFrame}" Padding="12">
+                        <VerticalStackLayout HorizontalOptions="Center">
+                            <Label Text="{Binding Overdue}" FontSize="24" FontAttributes="Bold"
+                                   TextColor="{StaticResource Error}" HorizontalOptions="Center" />
+                            <Label Text="En retard" FontSize="12" HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </Grid>
+
+                <Frame Style="{StaticResource CardFrame}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="Progression globale" FontAttributes="Bold" />
+                        <Label Text="{Binding CompletionPercentage, StringFormat='{0:0} %'}"
+                               FontSize="28" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        <ProgressBar Progress="{Binding CompletionPercentage, Converter={StaticResource PercentageToProgressConverter}}"
+                                     ProgressColor="{StaticResource Primary}"
+                                     ScaleY="2" />
+                        <Label Text="{Binding Completed, StringFormat='{0} tâches terminées'}"
+                               Style="{StaticResource SecondaryLabel}" />
+                    </VerticalStackLayout>
+                </Frame>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

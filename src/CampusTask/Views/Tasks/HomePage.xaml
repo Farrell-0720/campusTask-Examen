@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:CampusTask.ViewModels"
+             xmlns:models="clr-namespace:CampusTask.Models"
+             x:Class="CampusTask.Views.Tasks.HomePage"
+             x:DataType="vm:HomeViewModel"
+             BackgroundColor="{StaticResource Background}"
+             Title="Accueil">
+
+    <RefreshView IsRefreshing="{Binding IsBusy}"
+                 Command="{Binding RefreshCommand}">
+        <ScrollView>
+            <VerticalStackLayout Padding="16" Spacing="16">
+
+                <!-- Message de bienvenue -->
+                <Label Text="{Binding WelcomeMessage}"
+                       Style="{StaticResource TitleLabel}" />
+
+                <Label Text="Vos prochaines échéances, en un coup d'œil."
+                       Style="{StaticResource SecondaryLabel}" />
+
+                <!-- Résumé -->
+                <Frame Style="{StaticResource CardFrame}">
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="{Binding TotalTasks}" FontSize="22" FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}" HorizontalOptions="Center" />
+                            <Label Text="Total" FontSize="12" TextColor="{StaticResource TextSecondary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="{Binding CompletedTasks}" FontSize="22" FontAttributes="Bold"
+                                   TextColor="{StaticResource Success}" HorizontalOptions="Center" />
+                            <Label Text="Terminées" FontSize="12" TextColor="{StaticResource TextSecondary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                            <Label Text="{Binding OverdueTasks}" FontSize="22" FontAttributes="Bold"
+                                   TextColor="{StaticResource Error}" HorizontalOptions="Center" />
+                            <Label Text="En retard" FontSize="12" TextColor="{StaticResource TextSecondary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+
+                <!-- Bouton ajouter -->
+                <Button Text="+ Ajouter une tâche"
+                        Style="{StaticResource PrimaryButton}"
+                        Command="{Binding GoToAddTaskCommand}" />
+
+                <!-- État vide -->
+                <VerticalStackLayout IsVisible="{Binding IsEmpty}" Spacing="8" HorizontalOptions="Center" Margin="0,24">
+                    <Label Text="Aucune tâche pour le moment"
+                           FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Label Text="Commence par ajouter ta première tâche universitaire."
+                           Style="{StaticResource SecondaryLabel}" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+
+                <!-- Tâches prioritaires -->
+                <Label Text="À traiter en priorité" FontAttributes="Bold" FontSize="16"
+                       IsVisible="{Binding IsEmpty, Converter={StaticResource InvertedBoolConverter}}" />
+
+                <CollectionView ItemsSource="{Binding PriorityTasks}"
+                                IsVisible="{Binding IsEmpty, Converter={StaticResource InvertedBoolConverter}}"
+                                SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:AcademicTask">
+                            <Frame Style="{StaticResource CardFrame}" Margin="0,0,0,8"
+                                   Padding="12">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=OpenTaskCommand}"
+                                        CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                    <Label Text="{Binding Subject}" FontSize="13"
+                                           TextColor="{StaticResource TextSecondary}" />
+                                    <Label Text="{Binding DueDate, StringFormat='Échéance : {0:dd/MM/yyyy}'}"
+                                           FontSize="12" TextColor="{StaticResource TextSecondary}" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

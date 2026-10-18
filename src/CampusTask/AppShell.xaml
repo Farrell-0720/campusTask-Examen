@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="CampusTask.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:auth="clr-namespace:CampusTask.Views.Authentication"
+    xmlns:tasks="clr-namespace:CampusTask.Views.Tasks"
+    xmlns:stats="clr-namespace:CampusTask.Views.Statistics"
+    xmlns:profile="clr-namespace:CampusTask.Views.Profile"
+    Shell.FlyoutBehavior="Disabled"
+    BackgroundColor="{StaticResource Background}">
+
+    <!-- Route d'authentification (pas de bottom bar) -->
+    <ShellContent Route="LoginPage"
+                  ContentTemplate="{DataTemplate auth:LoginPage}"
+                  FlyoutItemIsVisible="False" />
+
+    <ShellContent Route="RegisterPage"
+                  ContentTemplate="{DataTemplate auth:RegisterPage}"
+                  FlyoutItemIsVisible="False" />
+
+    <!-- Navigation principale après connexion -->
+    <TabBar Route="MainTabs">
+        <ShellContent Title="Accueil"
+                      Route="HomePage"
+                      ContentTemplate="{DataTemplate tasks:HomePage}" />
+
+        <ShellContent Title="Tâches"
+                      Route="TasksPage"
+                      ContentTemplate="{DataTemplate tasks:TasksPage}" />
+
+        <ShellContent Title="Ajouter"
+                      Route="AddTaskPage"
+                      ContentTemplate="{DataTemplate tasks:AddTaskPage}" />
+
+        <ShellContent Title="Stats"
+                      Route="StatisticsPage"
+                      ContentTemplate="{DataTemplate stats:StatisticsPage}" />
+
+        <ShellContent Title="Profil"
+                      Route="ProfilePage"
+                      ContentTemplate="{DataTemplate profile:ProfilePage}" />
+    </TabBar>
+
+</Shell>
