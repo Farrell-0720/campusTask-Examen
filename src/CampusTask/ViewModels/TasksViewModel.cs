@@ -49,8 +49,8 @@ namespace CampusTask.ViewModels
             {
                 result = SelectedFilter switch
                 {
-                    "À faire" => await _taskService.FilterAsync(TaskStatus.Todo, null),
-                    "Terminées" => await _taskService.FilterAsync(TaskStatus.Completed, null),
+                    "À faire" => await _taskService.FilterAsync(AcademicTaskStatus.Todo, null),
+                    "Terminées" => await _taskService.FilterAsync(AcademicTaskStatus.Completed, null),
                     "En retard" => await _taskService.FilterAsync(null, null, onlyOverdue: true),
                     _ => await _taskService.GetAllAsync()
                 };

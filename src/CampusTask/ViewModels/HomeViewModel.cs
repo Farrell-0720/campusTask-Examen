@@ -56,7 +56,7 @@ namespace CampusTask.ViewModels
 
                 // Tâches prioritaires (haute + en retard ou à faire)
                 var priority = all
-                    .Where(t => t.Status == TaskStatus.Todo && (t.Priority == TaskPriority.High || t.IsOverdue))
+                    .Where(t => t.Status == AcademicTaskStatus.Todo && (t.Priority == TaskPriority.High || t.IsOverdue))
                     .OrderBy(t => t.DueDate)
                     .Take(3)
                     .ToList();
@@ -65,7 +65,7 @@ namespace CampusTask.ViewModels
 
                 // Tâches du jour
                 var today = all
-                    .Where(t => t.Status == TaskStatus.Todo && t.DueDate.Date == DateTime.Today)
+                    .Where(t => t.Status == AcademicTaskStatus.Todo && t.DueDate.Date == DateTime.Today)
                     .OrderBy(t => t.Priority)
                     .ToList();
 

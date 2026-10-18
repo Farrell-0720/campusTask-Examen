@@ -29,7 +29,7 @@ namespace CampusTask.ViewModels
             {
                 IsBusy = true;
                 Task = await _taskService.GetByIdAsync(TaskId);
-                StatusLabel = Task?.Status == TaskStatus.Completed ? "Terminée" : "À faire";
+                StatusLabel = Task?.Status == AcademicTaskStatus.Completed ? "Terminée" : "À faire";
             }
             finally
             {

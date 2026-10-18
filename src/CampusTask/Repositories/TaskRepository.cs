@@ -1,6 +1,5 @@
 using CampusTask.Data;
 using CampusTask.Models;
-using SQLite;
 
 namespace CampusTask.Repositories
 {
@@ -25,7 +24,6 @@ namespace CampusTask.Repositories
         public async Task<AcademicTask?> GetByIdAsync(int taskId, int userId)
         {
             var db = await _databaseService.GetConnectionAsync();
-            // Isolation stricte : on vérifie toujours le propriétaire
             return await db.Table<AcademicTask>()
                            .Where(t => t.Id == taskId && t.UserId == userId)
                            .FirstOrDefaultAsync();
@@ -48,11 +46,9 @@ namespace CampusTask.Repositories
         public async Task<int> DeleteAsync(int taskId, int userId)
         {
             var db = await _databaseService.GetConnectionAsync();
-            // Suppression sécurisée : on s'assure que la tâche appartient bien à l'utilisateur
             var task = await GetByIdAsync(taskId, userId);
             if (task == null)
                 return 0;
-
             return await db.DeleteAsync(task);
         }
 
@@ -64,7 +60,7 @@ namespace CampusTask.Repositories
                            .CountAsync();
         }
 
-        public async Task<int> CountByStatusAsync(int userId, TaskStatus status)
+        public async Task<int> CountByStatusAsync(int userId, AcademicTaskStatus status)
         {
             var db = await _databaseService.GetConnectionAsync();
             return await db.Table<AcademicTask>()

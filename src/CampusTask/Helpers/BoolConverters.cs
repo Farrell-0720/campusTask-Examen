@@ -33,7 +33,7 @@ namespace CampusTask.Helpers
     public class IsTodoConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-            => value is TaskStatus status && status == TaskStatus.Todo;
+            => value is AcademicTaskStatus status && status == AcademicTaskStatus.Todo;
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
             => throw new NotSupportedException();
@@ -45,7 +45,7 @@ namespace CampusTask.Helpers
     public class IsCompletedConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-            => value is TaskStatus status && status == TaskStatus.Completed;
+            => value is AcademicTaskStatus status && status == AcademicTaskStatus.Completed;
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
             => throw new NotSupportedException();

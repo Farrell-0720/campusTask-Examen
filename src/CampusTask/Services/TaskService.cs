@@ -53,7 +53,7 @@ namespace CampusTask.Services
                 Subject = subject.Trim(),
                 DueDate = dueDate.Date,
                 Priority = priority,
-                Status = TaskStatus.Todo,
+                Status = AcademicTaskStatus.Todo,
                 CreatedAt = DateTime.UtcNow
             };
 
@@ -102,10 +102,10 @@ namespace CampusTask.Services
             if (task == null)
                 return (false, "Tâche introuvable.");
 
-            if (task.Status == TaskStatus.Completed)
+            if (task.Status == AcademicTaskStatus.Completed)
                 return (false, "Cette tâche est déjà terminée.");
 
-            task.Status = TaskStatus.Completed;
+            task.Status = AcademicTaskStatus.Completed;
             task.CompletedAt = DateTime.UtcNow;
             await _taskRepository.UpdateAsync(task);
             return (true, "Tâche marquée comme terminée.");
@@ -118,10 +118,10 @@ namespace CampusTask.Services
             if (task == null)
                 return (false, "Tâche introuvable.");
 
-            if (task.Status == TaskStatus.Todo)
+            if (task.Status == AcademicTaskStatus.Todo)
                 return (false, "Cette tâche n'est pas terminée.");
 
-            task.Status = TaskStatus.Todo;
+            task.Status = AcademicTaskStatus.Todo;
             task.CompletedAt = null;
             await _taskRepository.UpdateAsync(task);
             return (true, "Tâche réouverte.");
@@ -141,7 +141,7 @@ namespace CampusTask.Services
             ).ToList();
         }
 
-        public async Task<List<AcademicTask>> FilterAsync(TaskStatus? status, TaskPriority? priority, bool onlyOverdue = false)
+        public async Task<List<AcademicTask>> FilterAsync(AcademicTaskStatus? status, TaskPriority? priority, bool onlyOverdue = false)
         {
             var all = await GetAllAsync();
 

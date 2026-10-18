@@ -12,6 +12,6 @@ namespace CampusTask.Services
         Task<(bool Success, string Message)> MarkAsCompletedAsync(int id);
         Task<(bool Success, string Message)> ReopenAsync(int id);
         Task<List<AcademicTask>> SearchAsync(string query);
-        Task<List<AcademicTask>> FilterAsync(TaskStatus? status, TaskPriority? priority, bool onlyOverdue = false);
+        Task<List<AcademicTask>> FilterAsync(AcademicTaskStatus? status, TaskPriority? priority, bool onlyOverdue = false);
     }
 }

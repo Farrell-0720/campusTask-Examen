@@ -23,8 +23,8 @@ namespace CampusTask.Services
             var tasks = await _taskRepository.GetByUserIdAsync(user.Id);
 
             var total = tasks.Count;
-            var completed = tasks.Count(t => t.Status == TaskStatus.Completed);
-            var todo = tasks.Count(t => t.Status == TaskStatus.Todo);
+            var completed = tasks.Count(t => t.Status == AcademicTaskStatus.Completed);
+            var todo = tasks.Count(t => t.Status == AcademicTaskStatus.Todo);
             var overdue = tasks.Count(t => t.IsOverdue);
 
             double percentage = total == 0 ? 0 : Math.Round((double)completed / total * 100, 1);

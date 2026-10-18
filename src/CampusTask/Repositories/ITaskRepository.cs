@@ -10,7 +10,7 @@ namespace CampusTask.Repositories
         Task<int> UpdateAsync(AcademicTask task);
         Task<int> DeleteAsync(int taskId, int userId);
         Task<int> CountByUserAsync(int userId);
-        Task<int> CountByStatusAsync(int userId, TaskStatus status);
+        Task<int> CountByStatusAsync(int userId, AcademicTaskStatus status);
         Task<List<AcademicTask>> GetOverdueAsync(int userId);
     }
 }
